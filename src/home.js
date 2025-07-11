@@ -4,6 +4,9 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground, 
 import {initializeApp} from 'firebase/app';
 import { collection, query, where, getDocs, getFirestore, addDoc } from "firebase/firestore";
 import moment from "moment";
+import * as NavigationBar from 'expo-navigation-bar';
+import { StatusBar } from 'expo-status-bar';
+import ToastManager, { Toast } from 'toastify-react-native'
 
 const firebaseConfig = {
   apiKey: "AIzaSyApNZMXnw0dOJQbQ83If16T2TKv3tRxq50",
@@ -29,6 +32,8 @@ export default class Home extends Component {
   }
   async componentDidMount(){
     this.getArticles();
+    NavigationBar.setBackgroundColorAsync("#fff");
+    NavigationBar.setButtonStyleAsync("dark");
   }
   getArticles = async() => {
     let tempArr = [];
@@ -50,7 +55,11 @@ export default class Home extends Component {
       photo: articlesArr[index].photo,
       bookmarked_date: moment(new Date()).format("hh:mm A, Do MMMM YYYY")
     });
-    alert("DATA ENTERED")
+    Toast.show({
+      type: 'info',
+      text1: 'Article Bookmarked',
+      position: "bottom"
+    })
   }
   checkIfBookmarked = async(index) => {
     let temp;
@@ -60,7 +69,11 @@ export default class Home extends Component {
       temp = item.data();
     })
     if(temp){
-      alert("Bookmark already exists")
+      Toast.show({
+        type: 'info',
+        text1: 'Article Already Bookmarked',
+        position: "bottom"
+      })
     }
     else{
       this.bookmarkArticle(index)
@@ -75,6 +88,7 @@ export default class Home extends Component {
     let {activeButton, articlesArr} = this.state;
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor={"#fff"} style="dark" />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={{ alignItems: "center", marginBottom: 0, }}>
           <TouchableOpacity
             onPress={()=>this.setState({activeButton: "Trending"})}
@@ -144,6 +158,7 @@ export default class Home extends Component {
             stackSize={2}
           />
         </View>
+        <ToastManager bottomOffset={60}/>
       </View>
     );
   }
@@ -173,34 +188,34 @@ const styles = StyleSheet.create({
     color: "#6c6c6c", fontSize: 14.5, fontWeight: "bold"
   },
   swiperContainer: {
-    width: '100%', 
+    width: '100%',
     marginTop: -25,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20
   },
   card: {
-    backgroundColor: "#fff", 
-    width: "90%", 
-    height: 565, 
-    marginHorizontal: "6%", 
+    backgroundColor: "#fff",
+    width: "90%",
+    height: 565,
+    marginHorizontal: "6%",
     borderRadius: 20,
-    shadowColor: "#000", 
-    shadowOffset: { width: 0, height: 1, }, 
-    shadowOpacity: 0.20, 
-    shadowRadius: 1.41, 
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1, },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
     elevation: 2
   },
   imageBackground: {
-    width: "100%", 
+    width: "100%",
     height: 250
   },
   cardContent: {
     padding: "5%",
   },
   cardHeaderText: {
-    fontSize: 19, 
-    fontWeight: 'bold', 
+    fontSize: 19,
+    fontWeight: 'bold',
     color: '#333',
     lineHeight: 25
   },

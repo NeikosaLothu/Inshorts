@@ -9,10 +9,12 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-navigation/bottom-tabs": "6.x",
     "@react-navigation/native": "6.x",
     "@react-navigation/native-stack": "6.x",
     "expo": "~53.0.11",
+    "expo-navigation-bar": "^4.2.7",
     "expo-status-bar": "~2.2.3",
     "firebase": "^11.10.0",
     "lodash": "^4.17.21",
@@ -21,9 +23,12 @@
     "react-native": "0.79.3",
     "react-native-deck-swiper": "^2.0.18",
     "react-native-gesture-handler": "^2.27.1",
+    "react-native-modal": "^14.0.0-rc.1",
     "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.11.1"
+    "react-native-screens": "~4.11.1",
+    "react-native-vector-icons": "^10.2.0",
+    "toastify-react-native": "^7.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
